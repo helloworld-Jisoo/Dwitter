@@ -1,24 +1,26 @@
-export default class HttpClient{
-  constructor(baseURL){
+export default class HttpClient {
+  constructor(baseURL) {
     this.baseURL = baseURL;
   }
 
-  async fetch(url,options){
-    const response = await fetch(`${this.baseURL}${url}`,{
+  async fetch(url, options) {
+    const res = await fetch(`${this.baseURL}${url}`, {
       ...options,
       headers: {
         'Content-Type': 'application/json',
-        ...options.header
-      }
+        ...options.headers,
+      },
     });
     let data;
     try {
-      data = await response.json();
+      data = await res.json();
     } catch (error) {
       console.error(error);
     }
-    if (response.status >299 || response.status < 200){
-      const message = data && data.message ? data.message : 'Something went wrong 👻'
+
+    if (res.status > 299 || res.status < 200) {
+      const message =
+        data && data.message ? data.message : 'Something went wrong! 🤪';
       throw new Error(message);
     }
     return data;
