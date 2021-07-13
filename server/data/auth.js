@@ -1,5 +1,6 @@
 import MongoDb from 'mongodb';
 import { getUsers } from '../db/database.js'; 
+
 const ObjectID = MongoDb.ObjectID;
 
 export async function findByUsername(username) {
