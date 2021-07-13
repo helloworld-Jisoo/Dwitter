@@ -10,12 +10,18 @@ export function connectDB(){
   })
 }
 
+  // _id -> id
+export function useVitualId(schema){
+  schema.virtual('id').get(function(){
+    return this._id.toString();
+  });
+  schema.set('toJSON', {virtuals: true});
+  schema.set('toObject', {virtuals: true});
+}
+
 //Todo(Jisoo): Delete below
 
 let db;
-export function getUsers() {
-  return db.collection('users');
-}
 
 export function getTweets() {
   return db.collection('tweets');
